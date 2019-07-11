@@ -4,23 +4,9 @@
 */ axios
   .get(`https://api.github.com/users/dustinmyers`)
   .then(data => {
-    // 1. (see above)
-    // Handles Success: here's where we get the results from server
-    // got 3 random doggos
     console.log("data:", data);
-    const images = data.data.message;
-    images.forEach(avatarurl => {
-      // 2. (see above)
-      const element = createGitHubCard(
-        avatarurl,
-        location,
-        followers,
-        following
-      );
-      // 3. (see above)
-      entry.appendChild(element);
-    });
   })
+  // 3. (see above)
   .catch(error => {
     // Handles failure:
     console.log("ERROR", error);
@@ -50,8 +36,9 @@ function createGitHubCard() {
   const location = document.createElement("p");
   const profile = document.createElement("p");
   const userUrl = document.createElement("a");
-  const followers = document.createElement("h3");
+  const followers = document.createElement("p");
   const following = document.createElement("p");
+  const bio = document.createElement("p");
 
   // set the styles
   card.classList.add("card");

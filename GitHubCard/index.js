@@ -1,10 +1,13 @@
+const entry = document.querySelector(".cards");
+
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */ axios
   .get(`https://api.github.com/users/dustinmyers`)
-  .then(data => {
+  .then(res => {
     console.log("data:", data);
+    entry.appendChild(createGitHubCard(res.data));
   })
   // 3. (see above)
   .catch(error => {
@@ -12,7 +15,7 @@
     console.log("ERROR", error);
   });
 
-function createGitHubCard() {
+function createGitHubCard(gitHubUser) {
   // create the elements
   //   <div class="card">
   //     <img src={image url of user} />
@@ -29,7 +32,7 @@ function createGitHubCard() {
   //   </div>
   // </div >
   const card = document.createElement("div");
-  const img = document.createElement("img");
+  const imgUser = document.createElement("img");
   const cardInfor = document.createElement("div");
   const name = document.createElement("h3");
   const username = document.createElement("p");
@@ -40,19 +43,32 @@ function createGitHubCard() {
   const following = document.createElement("p");
   const bio = document.createElement("p");
 
-  // set the styles
+  //setting up structure element
+  card.appendChild(imgUser);
+  card.appendChild(cardInfor);
+
+  cardInfor.appendChild(name);
+  cardInfor.appendChild(username);
+  cardInfor.appendChild(location);
+  cardInfor.appendChild(profile);
+
+  cardInfor.appendChild(followers);
+  cardInfor.appendChild(following);
+  cardInfor.appendChild(bio);
+
+  // set the classList and attributes
+
   card.classList.add("card");
-  img.classList.add("card-image");
+  cardInfor.classList.add("card-infor");
+  imgUser.src = gitHubUser.avatar_url;
+  a.href = gitHubUser.html_url;
   name.classList.add("name");
   username.classList.add("username");
 
   // set the content
 
-  (img.src = avatarurl),
-    (nameG.textContent =
-      // put together
-      card.appendChild(img));
-  card.appendChild(title);
+  // put together
+
   return card;
 }
 

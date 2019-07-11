@@ -6,7 +6,7 @@ const entry = document.querySelector(".cards");
 */ axios
   .get(`https://api.github.com/users/dustinmyers`)
   .then(res => {
-    console.log("data:", data);
+    console.log(res);
     entry.appendChild(createGitHubCard(res.data));
   })
   // 3. (see above)
@@ -61,13 +61,20 @@ function createGitHubCard(gitHubUser) {
   card.classList.add("card");
   cardInfor.classList.add("card-infor");
   imgUser.src = gitHubUser.avatar_url;
-  a.href = gitHubUser.html_url;
+  userUrl.href = gitHubUser.html_url;
   name.classList.add("name");
   username.classList.add("username");
 
   // set the content
-
-  // put together
+  name.textContent = gitHubUser.name;
+  username.textContent = gitHubUser.login;
+  Location.textContent = `Location: ${gitHubUser.location}`;
+  userUrl.textContent = gitHubUser.html_url;
+  profile.textContent = "Profile: ";
+  profile.appendChild(adress);
+  followers.textContent = gitHubUser.followers;
+  following.textContent = gitHubUser.following;
+  bio.textContent = `Bio: ${gitHubUser.bio}`;
 
   return card;
 }

@@ -1,7 +1,97 @@
-/* Step 1: using axios, send a GET request to the following URL 
-           (replacing the palceholder with your Github name):
-           https://api.github.com/users/<your name>
+const entry = document.querySelector(".cards");
+
+axios
+  .get(`https://api.github.com/users/chikechris`)
+  .then(res => {
+    console.log("gitHub infor:", res);
+    const gitData = res.data;
+    console.log(myData);
+    const gitCard = createGitHubCard(gitData);
+    entry.appendChild(gitCard);
+  })
+
+  .catch(error => {
+    // Handles failure:
+    console.log("ERROR", error);
+  });
+
+/* List of LS Instructors Github username's:
+  tetondan
+  dustinmyers
+  justsml
+  luishrd
+  bigknell
 */
+const followersArray = [
+  "tetondan",
+  " dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+];
+followersArray.forEach(follower => {
+  axios
+    .get(`https://api.github.com/users/${follower}`)
+    .then(res => {
+      console.log("Github info: ", res);
+      const gitData = res.data;
+      console.log(gitData);
+      const gitCard = createGitHubCard(gitData);
+      entry.appendChild(gitCard);
+    })
+    .catch(error => {
+      console.log("ERROR", error);
+    });
+});
+
+function createGitHubCard(gitHubUser) {
+  const card = document.createElement("div");
+  const imgUser = document.createElement("img");
+  const cardInfor = document.createElement("div");
+  const name = document.createElement("h3");
+  const username = document.createElement("p");
+  const location = document.createElement("p");
+  const profile = document.createElement("p");
+  const userUrl = document.createElement("a");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement("p");
+
+  //setting up structure element
+  card.appendChild(imgUser);
+  card.appendChild(cardInfor);
+
+  cardInfor.appendChild(name);
+  cardInfor.appendChild(username);
+  cardInfor.appendChild(location);
+  cardInfor.appendChild(profile);
+
+  cardInfor.appendChild(followers);
+  cardInfor.appendChild(following);
+  cardInfor.appendChild(bio);
+
+  // set the classList and attributes
+
+  card.classList.add("card");
+  cardInfor.classList.add("card-infor");
+  imgUser.src = gitHubUser.avatar_url;
+  userUrl.href = gitHubUser.html_url;
+  name.classList.add("name");
+  username.classList.add("username");
+
+  // set the content
+  name.textContent = gitHubUser.name;
+  username.textContent = gitHubUser.login;
+  Location.textContent = `Location: ${gitHubUser.location}`;
+  userUrl.textContent = gitHubUser.html_url;
+  profile.textContent = "Profile: ";
+  profile.appendChild(userUrl);
+  followers.textContent = `Followers: ${gitHubUser.followers}`;
+  following.textContent = `Following:  ${gitHubUser.following}`;
+  bio.textContent = `Bio: ${gitHubUser.bio}`;
+
+  return card;
+}
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -24,32 +114,9 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
-<div class="card">
-  <img src={image url of user} />
-  <div class="card-info">
-    <h3 class="name">{users name}</h3>
-    <p class="username">{users user name}</p>
-    <p>Location: {users location}</p>
-    <p>Profile:  
-      <a href={address to users github page}>{address to users github page}</a>
-    </p>
-    <p>Followers: {users followers count}</p>
-    <p>Following: {users following count}</p>
-    <p>Bio: {users bio}</p>
-  </div>
-</div>
 
-*/
 
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
 */

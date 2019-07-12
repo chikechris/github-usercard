@@ -1,36 +1,43 @@
 const entry = document.querySelector(".cards");
 
-/* Step 1: using axios, send a GET request to the following URL 
-           (replacing the palceholder with your Github name):
-           https://api.github.com/users/<your name>
-*/ axios
-  .get(`https://api.github.com/users/dustinmyers`)
+axios
+  .get(`https://api.github.com/users/chikechris`)
   .then(res => {
-    console.log(res);
-    entry.appendChild(createGitHubCard(res.data));
+    console.log("gitHub infor:", res);
+    const gitData = res.data;
+    console.log(myData);
+    const gitCard = createGitHubCard(gitData);
+    entry.appendChild(gitCard);
   })
-  // 3. (see above)
+
   .catch(error => {
     // Handles failure:
     console.log("ERROR", error);
   });
 
+const followersArray = [
+  "alasalle",
+  "aceyoung9",
+  "Sawaiz",
+  "ArjunBisen",
+  "gnarizzy"
+];
+followersArray.forEach(follower => {
+  axios
+    .get(`https://api.github.com/users/${follower}`)
+    .then(res => {
+      console.log("Github info: ", res);
+      const gitData = res.data;
+      console.log(gitData);
+      const gitCard = createGitHubCard(gitData);
+      entry.appendChild(gitCard);
+    })
+    .catch(error => {
+      console.log("ERROR", error);
+    });
+});
+
 function createGitHubCard(gitHubUser) {
-  // create the elements
-  //   <div class="card">
-  //     <img src={image url of user} />
-  //   <div class="card-info">
-  //       <h3 class="name">{users name}</h3>
-  //       <p class="username">{users user name}</p>
-  //       <p>Location: {users location}</p>
-  //       <p>Profile:
-  //       <a href={address to users github page}>{address to users github page}</a>
-  //     </p>
-  //     <p>Followers: {users followers count}</p>
-  //     <p>Following: {users following count}</p>
-  //     <p>Bio: {users bio}</p>
-  //   </div>
-  // </div >
   const card = document.createElement("div");
   const imgUser = document.createElement("img");
   const cardInfor = document.createElement("div");
@@ -71,9 +78,9 @@ function createGitHubCard(gitHubUser) {
   Location.textContent = `Location: ${gitHubUser.location}`;
   userUrl.textContent = gitHubUser.html_url;
   profile.textContent = "Profile: ";
-  profile.appendChild(adress);
-  followers.textContent = gitHubUser.followers;
-  following.textContent = gitHubUser.following;
+  profile.appendChild(userUrl);
+  followers.textContent = `Followers: ${gitHubUser.followers}`;
+  following.textContent = `Following:  ${gitHubUser.following}`;
   bio.textContent = `Bio: ${gitHubUser.bio}`;
 
   return card;
@@ -99,8 +106,6 @@ function createGitHubCard(gitHubUser) {
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
-
-const followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:

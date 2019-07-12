@@ -15,12 +15,19 @@ axios
     console.log("ERROR", error);
   });
 
+/* List of LS Instructors Github username's:
+  tetondan
+  dustinmyers
+  justsml
+  luishrd
+  bigknell
+*/
 const followersArray = [
-  "alasalle",
-  "aceyoung9",
-  "Sawaiz",
-  "ArjunBisen",
-  "gnarizzy"
+  "tetondan",
+  " dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
 ];
 followersArray.forEach(follower => {
   axios
@@ -112,12 +119,4 @@ function createGitHubCard(gitHubUser) {
 
 
 
-*/
-
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
 */

@@ -23,7 +23,7 @@ axios
   bigknell
 */
 const followersArray = [
-  "chikechris",
+  "tetondan",
   " dustinmyers",
   "justsml",
   "luishrd",
